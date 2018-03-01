@@ -1,18 +1,12 @@
 import math
 
-print("Give me a positive whole number n, and I will give you the sum of every positive whole number less than n that are also divisible by either 3, or 5!")
-print("What is your n?")
+# If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+#
+# Find the sum of all the multiples of 3 or 5 below 1000.
 
 ready = False;
 
-
-while (ready == False):
-    n = float(input())
-    if ((n > 0) and (math.floor(n) % n) == 0):
-        print("Thank you!")
-        ready = True;
-    else:
-        print("Sorry, your n does not abide by the rules I have laid out for you, please give me a positive whole number!")
+n = 1000
 
 sum = 0
 
