@@ -106,56 +106,129 @@ import math
 # print(triangle)
             
 
-# Solution 3:
+# Solution 3: This solution is incomplete, however, I believe an answer along
+# its ideas (ie. creating numbers with 500 divisors by building up from prime
+# factorization) will be the fastest possible solution uponfurther scaling.
 # -----------
 
-divisors = 500
-count = 1
-primes = [2, 3]
-last_prime = 3
-prime_factors = {}
+# divisors = 500
+# count = 1
+# primes = [2, 3]
+# last_prime = 3
+# prime_factors = {}
 
-def inc_factor(p):
-    prime_factors[p] = (prime_factors[p] + 1)
+# def find_prime_factorization(n):
+#     i = 2
+#     factors = {}
+#     while i * i <= n:
+#         if n % i:
+#             i += 1
+#         else:
+#             n //= i
+#             if i in factors:
+#                 factors[i] += 1
+#             else:
+#                 factors[i] = 1
+#     if n > 1:
+#         if n in factors:
+#             factors[n] += 1
+#         else:
+#             factors[n] = 1
+#     return factors
 
-def next_prime(i):
-    found = False
-    while found == False:
-        i += 2
-        stop = False
-        for n in primes:
-            if i % n == 0:
-                stop = True
-                break
-        if stop == False:
-            found = True
-    return i
+# def next_prime(i):
+#     found = False
+#     while found == False:
+#         i += 2
+#         stop = False
+#         for n in primes:
+#             if i % n == 0:
+#                 stop = True
+#                 break
+#         if stop == False:
+#             found = True
+#     return i
 
-def count_divisors():
+# def count_divisors(pf):
+#     count = 1
+#     for k,v in sorted(pf.items()):
+#         if (v > 0):
+#             count *= (v + 1)
+#     if count > divisors:
+#         return True
+#     else:
+#         return False
+
+# def make_first_n_with_d(div):
+#     n = 2
+#     primes = {2:1}
+#   
+#     newPrimeCon = True
+#     for k,v in sorted(primes.items()):
+#         if (v == 0):
+#             newPrimeCon = False
+#     if (newPrimeCon == True):
+#         for k,v in sorted(primes.items()):
+#             if not (k**(v+1) > next(iter(primes))):
+#                 newPrimeCon = False
+#     if (newPrimeCon == True):
+#         primes[next_prime(primes.keys()[-1])] = 1
+#     else:
+#         print("work with what you have")
+#     
+#     if (count_divisors(primes) >= 500): 
+#         return n
+
+# def is_triangle(n):
+#     sub = 0
+#     while n > 0:
+#         sub += 1
+#         n -= sub
+#     if n == 0:
+#         return True
+#     else:
+#         return False
+
+# n = make_first_n_with_d(divisors)
+
+
+# Solution 4:
+# -----------
+
+def find_prime_factorization(n):
+    i = 2
+    factors = {}
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            if i in factors:
+                factors[i] += 1
+            else:
+                factors[i] = 1
+    if n > 1:
+        if n in factors:
+            factors[n] += 1
+        else:
+            factors[n] = 1
+    return factors
+
+def count_divisors(n):
+    pf = find_prime_factorization(n)
     count = 1
-    for k,v in sorted(prime_factor.items()):
-        count *= (v + 1)
-    if count > divisors:
-        return True
-    else:
-        return False
+    for k,v in sorted(pf.items()):
+        if (v > 0):
+            count *= (v + 1)
+    return(count)
 
-def make_next_n_with_d():
+def triangle_to_divisors(d):
+    t = 1
+    count = 2
+    while count_divisors(t) < d:
+        t += count
+        count += 1
+        print(t)
+    return t
 
-
-def triangle():
-    copy_factors = prime_factors
-    number = 
-    copy = number
-    sub = 0
-    while copy > 0:
-        sub += 1
-        number -= sub
-    if copy == 0:
-        print(number)
-
-
-make_next_n_with_d()
-
-while triangle()
-    
+print(triangle_to_divisors(500))
