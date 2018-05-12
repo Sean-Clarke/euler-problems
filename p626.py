@@ -1,4 +1,5 @@
 import math
+import itertools
 
 # A binary matrix is a matrix consisting entirely of 0s and 1s.
 # Consider the following transformations that can be performed on a binary matrix:
@@ -35,6 +36,17 @@ import math
 # The number of unique matrix combinations made by a matrix of size n x n
 # is equal to 2**n**2, eg. 16(2^2^2) for a 2x2 matrix, and 512(3^3^3) for a 3x3 matrix
 
+# possible combinations: 2582249878086908589655919172003011874329705792829223512830659356540647622016841194629645353280137831435903171972747493376
+
+# orbits % 1001001011 = 695577663
+
+# orbits = 1/|G| * Summation( g.M ) for g in G
+# g.M is equal to the number of m in M that g fix (ie. doesn't change)
+
+# for a matrix of size s x s, flipping a single row or column such that the left most
+# or top most and the right most or bottom most indexes are switched, has a g.M value
+# of 2**s//2 (eg. 2 -> 2, 3 -> 4, 4 -> 4, 5 -> 8)
+
 def matrix(n):
     return [[0 for i in range(0, n)] for i in range(0, n)]
 
@@ -53,22 +65,78 @@ def swap_col(m, c1, c2):
     for r in range(0, len(m)):
         m[r][c1], m[r][c2] = m[r][c2], m[r][c1]
 
-m = matrix(3)
+def new_flip_row(m, r):
+    n = []
+    for i in m:
+        n.append(i[:])
+    for c in range(0, len(n)):
+        n[r][c] ^= 1
+    return n
 
-print("")
+def new_flip_col(m, c):
+    n = []
+    for i in m:
+        n.append(i[:])
+    for r in range(0, len(n)):
+        n[r][c] ^= 1
+    return n
 
-m[0][0] = 1
-m[0][1] = 1
-m[0][2] = 1
-m[1][1] = 1
-m[2][2] = 1
+def new_swap_row(m, r1, r2):
+    n = []
+    for i in m:
+        n.append(i[:])
+    n[r1], n[r2] = n[r2], n[r1]
+    return n
 
-for r in m:
-    print(' '.join(str(n) for n in r))
+def new_swap_col(m, c1, c2):
+    n = []
+    for i in m:
+        n.append(i[:])
+    for r in range(0, len(n)):
+        n[r][c1], n[r][c2] = n[r][c2], n[r][c1]
+        return n
 
-print("")
+def generate_matricies(s):
+    _r = map(list, itertools.product([0, 1], repeat=s))
+    _m = map(list, itertools.product([r for r in _r], repeat=s))
+    print("generate_matricies has not been written yet")
+    return _m
 
-swap_col(m, 0, 1)
+def reduce_matricies(_m):
+    print("reduce_matricies has not been written yet")
+    return _m
 
-for r in m:
-    print(' '.join(str(n) for n in r))
+def populate_g(m):
+    g = {"swap_row":[],"swap_col":[],"flip_row":[],"flip_col":[]}
+    for r1 in range(0, len(m)):
+        for r2 in range(r1 + 1, len(m)):
+            g["swap_row"].append([r1, r2])
+    for c1 in range(0, len(m)):
+        for c2 in range(c1 + 1, len(m)):
+            g["swap_col"].append([c1, c2])
+    for r in range(0, len(m)):
+        g["flip_row"].append(r)
+    for c in range(0, len(m)):
+        g["flip_col"].append(c)
+    # len(g) = ((2 * sum(range(1, len(m))) + (2 *len(m)))
+    return g
+
+def count_g(g, matrix_size):
+    "What does this function do?"
+    gc = 0
+    for s in range(0, matrix_size):
+        print("this hasn't been written yet")
+    return gc
+
+def print_matrix(m):
+    for r in m:
+        print(' '.join(map(str, r)))
+
+s = 20
+c = 2**s**2
+m = matrix(s)
+_m = generate_matricies(s)
+g = populate_g(m)
+
+for i in g:
+    print(i, g[i])
